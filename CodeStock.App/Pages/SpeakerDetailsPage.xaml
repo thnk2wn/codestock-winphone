@@ -1,0 +1,135 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="CodeStock.App.Pages.SpeakerDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" 
+    xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
+    xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    d:DataContext="{Binding Source={StaticResource Locator}, Path=SpeakerItem}"
+    Windows:TiltEffect.IsTiltEnabled="True"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <Converters:UnHtmlConverter x:Key="removeHtmlConverter"/>
+        <Converters:NullObjectToVisibiltyConverter x:Key="nullVisibleConverter"/>
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FF000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="PageTitle" Text="{Binding Name}" Style="{StaticResource PageHeaderText}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Image Source="{Binding PhotoUrl}" Width="150" Height="150" HorizontalAlignment="Left"
+                        Media:LowProfileImageLoader.UriSource="{Binding PhotoUrl}" Margin="9" Stretch="Fill"  />
+
+                <StackPanel Orientation="Vertical">
+                    <HyperlinkButton Style="{StaticResource Link}" Content="{Binding TwitterId}" 
+                        HorizontalAlignment="Left" 
+                        FontSize="{StaticResource PhoneFontSizeSmall}"  Margin="0,2,0,31"
+                        Visibility="{Binding TwitterId, Converter={StaticResource nullVisibleConverter}}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cmd:EventToCommand Command="{Binding TwitterCommand}" PassEventArgsToCommand="False"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </HyperlinkButton>
+                    <HyperlinkButton Width="315" Style="{StaticResource HyperlinkButtonWrappingStyle}" 
+                        Content="{Binding Website}" HorizontalAlignment="Left" 
+                        FontSize="{StaticResource PhoneFontSizeSmall}" Margin="0,0,0,31"
+                        HorizontalContentAlignment="Left"
+                        Visibility="{Binding Website, Converter={StaticResource nullVisibleConverter}}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cmd:EventToCommand Command="{Binding WebsiteCommand}" PassEventArgsToCommand="False"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </HyperlinkButton>
+                    <TextBlock Text="{Binding Company}" HorizontalAlignment="Left" FontSize="{StaticResource PhoneFontSizeSmall}" Margin="12,0,0,11"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <ScrollViewer x:Name="uxScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="4,0,6,15" Height="500">
+                <StackPanel Margin="0,0,0,0">
+                    <TextBlock Text="{Binding Bio, Converter={StaticResource removeHtmlConverter}}" 
+                                    FontSize="{StaticResource PhoneFontSizeSmall}"
+                               Style="{StaticResource PhoneTextNormalStyle}" Margin="{StaticResource PhoneHorizontalMargin}"
+                                    TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Sessions" Style="{StaticResource HeaderSectionText}"
+                               
+                               />
+                    <ListBox ItemsSource="{Binding Sessions}" Margin="0,10,10,0" 
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <i:Interaction.Triggers>                            
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <cmd:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,15" Width="440">
+                                    <TextBlock Text="{Binding TimeAndRoom}" Style="{StaticResource SessionTimeAndRoomText}" />
+                                    <TextBlock Text="{Binding Title}" FontSize="{StaticResource PhoneFontSizeMedium}" FontWeight="Bold" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+
+                                    <Grid  HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Level}" Grid.Column="0" Style="{StaticResource PhoneTextSmallStyle}" />
+                                        <TextBlock Text="" Grid.Column="1" 
+                               Style="{StaticResource PhoneTextSmallStyle}" TextAlignment="Right"/>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <HyperlinkButton Style="{StaticResource Link}" 
+                                Content="View on codestock.org" HorizontalAlignment="Left" 
+                                FontSize="{StaticResource PhoneFontSizeSmall}"  
+                                Margin="0,12,0,20">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cmd:EventToCommand Command="{Binding SpeakerUrlCommand}" PassEventArgsToCommand="False"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </HyperlinkButton>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>

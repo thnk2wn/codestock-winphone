@@ -1,0 +1,75 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+    x:Class="CodeStock.App.Pages.WebBrowserPage"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    SupportedOrientations="{Binding SupportedOrientation}" 
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"    
+    shell:SystemTray.IsVisible="True" 
+    DataContext="{Binding Source={StaticResource Locator}, Path=WebBrowser}"
+    Orientation="Portrait"    
+    Foreground="Black">
+	
+
+    <!-- 
+    ViewModel="{Binding WebBrowserViewModel, Source={StaticResource ViewModelLocator}}"
+    
+    <Framework:BasePage.Foreground>
+		<SolidColorBrush Color="Black"/>
+	</Framework:BasePage.Foreground>
+    
+    -->
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="LoadingPageStates">
+    			<VisualStateGroup.Transitions>
+    				<VisualTransition GeneratedDuration="0:0:0.7" To="NotIsLoadingPage"/>
+    			</VisualStateGroup.Transitions>
+    			<VisualState x:Name="IsLoadingPage"/>
+    			<VisualState x:Name="NotIsLoadingPage">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(ProgressBar.IsIndeterminate)" Storyboard.TargetName="progressBar">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<System:Boolean>False</System:Boolean>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
+    					<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="progressBar" d:IsOptimized="True"/>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="progressBar">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<Visibility>Collapsed</Visibility>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
+        <phone:WebBrowser x:Name="webBrowser" Source="{Binding InitialSource}" 
+            Background="Black" Height="768"  IsScriptEnabled="True" 
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
+        	<Custom:Interaction.Triggers>
+        		<Custom:EventTrigger EventName="Navigating">
+        			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadingPage}"/>
+        		</Custom:EventTrigger>
+        		<Custom:EventTrigger EventName="LoadCompleted">
+        			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadedPage}"/>
+        		</Custom:EventTrigger>
+        	</Custom:Interaction.Triggers>
+        </phone:WebBrowser>
+        <ProgressBar x:Name="progressBar" Height="8" Margin="0" Style="{StaticResource PerformanceProgressBar}" VerticalAlignment="Center" IsIndeterminate="True"/>
+
+    </Grid>
+ 
+</phone:PhoneApplicationPage>

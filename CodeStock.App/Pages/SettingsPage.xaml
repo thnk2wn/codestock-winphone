@@ -1,0 +1,97 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="CodeStock.App.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:Controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:localCtl="clr-namespace:CodeStock.App.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Settings}"
+    >
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FF000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="PageTitle" Text="Settings" 
+                       Style="{StaticResource PageHeaderText}" />
+        </StackPanel>
+
+        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="11,0,11,0">
+            
+            <Controls:ToggleSwitch Header="Allow running under locked screen" 
+                            IsChecked="{Binding AllowRunUnderLock, Mode=TwoWay}"/>
+
+            <Controls:ToggleSwitch Header="Main background image" 
+                            IsChecked="{Binding MainBackgroundImageOn, Mode=TwoWay}"/>
+
+            <TextBlock Text="Session Cache Duration (Hours)" 
+                    Style="{StaticResource PhoneTextNormalStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                
+                <localCtl:PhoneSlider x:Name="uxSessionSlider" Minimum="0.5" Maximum="8" 
+                    SmallChange="0.5" LargeChange="2" Grid.Column="0" 
+                    Style="{StaticResource sliderStyle}"
+                    Value="{Binding SessionCacheDuration, Mode=TwoWay}"/>
+
+                <TextBlock Text="{Binding ElementName=uxSessionSlider,Path=Value}" Grid.Column="1"
+                    Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top"
+                    Margin="12,12,12,12"       />                
+            </Grid>
+
+            <TextBlock Text="Speaker Cache Duration (Hours)" 
+                    Style="{StaticResource PhoneTextNormalStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <localCtl:PhoneSlider x:Name="uxSpeakerSlider" Minimum="0.5" Maximum="8" 
+                        SmallChange="0.5" LargeChange="2" Grid.Column="0" 
+                        Style="{StaticResource sliderStyle}"
+                        Value="{Binding SpeakerCacheDuration, Mode=TwoWay}"/>
+
+                <TextBlock Text="{Binding ElementName=uxSpeakerSlider,Path=Value}" Grid.Column="1"
+                        Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top"
+                        Margin="12,12,12,12"       />
+            </Grid>
+
+            <TextBlock Text="CodeStock.org Schedule Cache Duration (Hours)" 
+                    Style="{StaticResource PhoneTextNormalStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <localCtl:PhoneSlider x:Name="uxScheduleSlider" Minimum="0.5" Maximum="8" 
+                        SmallChange="0.5" LargeChange="2" Grid.Column="0" 
+                        Style="{StaticResource sliderStyle}"
+                        Value="{Binding ScheduleCacheDuration, Mode=TwoWay}"/>
+
+                <TextBlock Text="{Binding ElementName=uxScheduleSlider,Path=Value}" Grid.Column="1"
+                        Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top"
+                        Margin="12,12,12,12"       />
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+ 
+    
+
+</phone:PhoneApplicationPage>

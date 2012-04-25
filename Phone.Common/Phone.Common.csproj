@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF238ED4-AFCA-44E5-B718-6DFF04708816}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Phone.Common</RootNamespace>
+    <AssemblyName>Phone.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Reactive" />
+    <Reference Include="Ninject">
+      <HintPath>..\Lib\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Serialization">
+      <HintPath>..\Lib\Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Observable" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=3.7.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Lib\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviors\UpdateOnTextChangedBehavior.cs" />
+    <Compile Include="Controls\SmartTextBlock.cs" />
+    <Compile Include="Controls\SmartTextBlockCustomSearch.cs" />
+    <Compile Include="Converters\BoolToValueConverter.cs" />
+    <Compile Include="Converters\ImageBrushConverter.cs" />
+    <Compile Include="Converters\NullObjectToVisibilityConverter.cs" />
+    <Compile Include="Collections\Group.cs" />
+    <Compile Include="Collections\GroupedObservableCollection.cs" />
+    <Compile Include="Controls\DeferredLoadListBox.cs" />
+    <Compile Include="Controls\DeferredLoadListBoxItem.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\IntConverter.cs" />
+    <Compile Include="Converters\UnHtmlConverter.cs" />
+    <Compile Include="Diagnostics\CodeTimer.cs" />
+    <Compile Include="Diagnostics\Logging\Constants.cs" />
+    <Compile Include="Diagnostics\Logging\DebugLog.cs" />
+    <Compile Include="Diagnostics\Logging\ILog.cs" />
+    <Compile Include="Diagnostics\Logging\ILogManager.cs" />
+    <Compile Include="Diagnostics\Logging\LoggingException.cs" />
+    <Compile Include="Diagnostics\Logging\LoggingService.cs" />
+    <Compile Include="Diagnostics\Logging\NullLoggingService.cs" />
+    <Compile Include="Diagnostics\Logging\LogInstance.cs" />
+    <Compile Include="Extensions\Microsoft.Phone.Controls_\PhoneApplicationPage.cs" />
+    <Compile Include="Extensions\Microsoft.Phone.Shell_\IApplicationBar.cs" />
+    <Compile Include="Extensions\System.Collections.Generic_\IEnumerableOfT.cs" />
+    <Compile Include="Extensions\System.IO_\Stream.cs" />
+    <Compile Include="Extensions\System.Linq.Expressions_\Expression.cs" />
+    <Compile Include="Extensions\System.Windows_\DependencyObject.cs" />
+    <Compile Include="Extensions\System.Windows_\FrameworkElement.cs" />
+    <Compile Include="Extensions\System_\Object.cs" />
+    <Compile Include="Interactivity\GestureBehavior.cs" />
+    <Compile Include="Interactivity\GestureTrigger.cs" />
+    <Compile Include="Interactivity\TapTrigger.cs" />
+    <Compile Include="IOC\DepInjectAttribute.cs" />
+    <Compile Include="IOC\IoC.cs" />
+    <Compile Include="IO\Cache.cs" />
+    <Compile Include="IO\FakeSettingsHelper.cs" />
+    <Compile Include="IO\IDataStorage.cs" />
+    <Compile Include="IO\ISettingsHelper.cs" />
+    <Compile Include="IO\ResourceHelper.cs" />
+    <Compile Include="IO\SettingsHelper.cs" />
+    <Compile Include="IO\TransientDataStorage.cs" />
+    <Compile Include="Media\LowProfileImageLoader.cs" />
+    <Compile Include="Navigation\INavigableTarget.cs" />
+    <Compile Include="Navigation\INavigationService.cs" />
+    <Compile Include="Navigation\NavigationService.cs" />
+    <Compile Include="Net\HtmlDecoder.cs" />
+    <Compile Include="Net\IHtmlDecoder.cs" />
+    <Compile Include="Net\IWebRequester.cs" />
+    <Compile Include="Net\RequestFailure.cs" />
+    <Compile Include="Net\WebRequester.cs" />
+    <Compile Include="Tasks\ITaskInvoker.cs" />
+    <Compile Include="Tasks\TaskInvoker.cs" />
+    <Compile Include="Text\RegExUtilities.cs" />
+    <Compile Include="Threading\DispatchTimerUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\DispatchUtil.cs" />
+    <Compile Include="Windows\IMessageBoxService.cs" />
+    <Compile Include="Windows\MessageBoxService.cs" />
+    <Compile Include="Windows\ThemeHelper.cs" />
+    <Compile Include="Windows\TiltEffect.cs" />
+    <Compile Include="Windows\VSM.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

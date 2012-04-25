@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="CodeStock.App.Controls.ErrorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
+             mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="50" d:DesignWidth="480"
+    Windows:TiltEffect.IsTiltEnabled="True">
+
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Width="45" Height="45" Source="/Images/error.png" Margin="8,4,20,4"/>
+        <HyperlinkButton Grid.Column="1" 
+            Content="Occurred, an error has." 
+            HorizontalAlignment="Left"
+            Style="{StaticResource Link}" Foreground="Red">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cmd:EventToCommand Command="{Binding ShowErrorCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </HyperlinkButton>
+        <Button Grid.Column="2" BorderThickness="0" Height="80" Width="80" Margin="-10,-3,2,0" 
+                Padding="0" VerticalAlignment="Center" Click="CloseClicked" >
+            <Grid>
+                <Image Margin="2" Source="/Images/close.png" Width="45" Height="45" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill"/>
+            </Grid>            
+        </Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,137 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="CodeStock.App.Pages.SessionDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    d:DataContext="{Binding Source={StaticResource Locator}, Path=SessionItem}"
+    shell:SystemTray.IsVisible="True">
+    
+    <UserControl.Resources>
+        <Converters:UnHtmlConverter x:Key="removeHtmlConverter"/>
+        <Converters:NullObjectToVisibiltyConverter x:Key="nullVisibleConverter"/>
+    </UserControl.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FF000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,5">
+            <TextBlock x:Name="PageTitle" Text="{Binding Title}" 
+                       Style="{StaticResource PageHeaderText}" />
+
+            <TextBlock Text="Time and Room" Style="{StaticResource HeaderText}"/>
+            <StackPanel Orientation="Horizontal">
+
+                <TextBlock Text="{Binding TimeAndRoom}" Margin="10,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+        
+        
+
+        <ScrollViewer x:Name="uxScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,10,5">
+            <StackPanel  x:Name="ContentPanel" Margin="12,0,0,20" >
+
+                <Grid Margin="0,0,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Level" Style="{StaticResource HeaderText}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="Vote Rank" Style="{StaticResource HeaderText}"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Level}" HorizontalAlignment="Right"  Margin="10,0,0,5"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding VoteRank}" HorizontalAlignment="Right"  Margin="10,0,0,5"/>
+                </Grid>                
+
+                <TextBlock Text="Technology" Style="{StaticResource HeaderText}"/>
+                <TextBlock Text="{Binding Technology}" TextWrapping="Wrap" Margin="10,0,0,5"/>
+
+                <TextBlock Text="Abstract" Style="{StaticResource HeaderText}"/>
+                
+                <TextBlock Text="{Binding Abstract, Converter={StaticResource removeHtmlConverter}}" TextWrapping="Wrap" 
+                         Margin="10,0,10,0"                
+                         FontSize="{StaticResource PhoneFontSizeSmall}"/>
+
+                <HyperlinkButton Style="{StaticResource Link}" 
+                                Content="View on codestock.org" HorizontalAlignment="Left" 
+                                FontSize="{StaticResource PhoneFontSizeSmall}"  
+                                Margin="{StaticResource PhoneVerticalMargin}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cmd:EventToCommand Command="{Binding SessionUrlCommand}" PassEventArgsToCommand="False"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </HyperlinkButton>
+
+                <StackPanel DataContext="{Binding Speaker}" Orientation="Vertical" 
+                        x:Name="SpeakerPanel" Margin="10,10,0,10">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding PhotoUrl}" Width="150" Height="150" HorizontalAlignment="Left"
+                         Media:LowProfileImageLoader.UriSource="{Binding PhotoUrl}" Stretch="Fill" />
+                        
+                        <StackPanel Orientation="Vertical">
+
+                            <HyperlinkButton Style="{StaticResource Link}" 
+                                Content="{Binding Name}" HorizontalAlignment="Left" 
+                                FontSize="{StaticResource PhoneFontSizeSmall}" Click="SpeakerLinkClicked"
+                                Margin="0,0,0,32">                                
+                            </HyperlinkButton>
+
+                            <HyperlinkButton Style="{StaticResource Link}" 
+                                Content="{Binding TwitterId}" HorizontalAlignment="Left" 
+                                FontSize="{StaticResource PhoneFontSizeSmall}"  
+                                Margin="0,0,0,32"
+                                Visibility="{Binding TwitterId, Converter={StaticResource nullVisibleConverter}}" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <cmd:EventToCommand Command="{Binding TwitterCommand}" PassEventArgsToCommand="False"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </HyperlinkButton>
+                            <HyperlinkButton Style="{StaticResource HyperlinkButtonWrappingStyle}" 
+                                 Content="{Binding Website}" HorizontalAlignment="Left" 
+                                  FontSize="{StaticResource PhoneFontSizeSmall}" Width="315"
+                                  HorizontalContentAlignment="Left">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <cmd:EventToCommand Command="{Binding WebsiteCommand}" PassEventArgsToCommand="False"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </HyperlinkButton>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                    
+                    <TextBlock Text="{Binding Bio, Converter={StaticResource removeHtmlConverter}}" Margin="0,20,0,5" 
+                               FontSize="{StaticResource PhoneFontSizeSmall}"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+            
+    </Grid>
+ 
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" x:Name="uxAppBar"> 
+            <!-- Note: everything done dynamically at runtime -->            
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

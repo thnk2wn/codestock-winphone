@@ -1,0 +1,36 @@
+﻿<Application 
+    x:Class="CodeStock.App.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:vml="clr-namespace:CodeStock.App.Locators">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Custom.System.Windows.xaml"/>
+                <ResourceDictionary Source="Styles/AppStyles.xaml"/>
+                <ResourceDictionary Source="Styles/WatermarkTextBox.xaml"/>
+                <ResourceDictionary Source="Styles/PerformanceProgressBar.xaml"/>
+                <ResourceDictionary Source="Styles/ChildWindow.xaml"/>
+                <ResourceDictionary Source="Styles/PhoneSlider.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- http://stackoverflow.com/questions/1229395/trouble-referencing-a-resource-dictionary-that-contains-a-merged-dictionary -->
+            <Style TargetType="Rectangle" />
+
+            <!-- seems this needs to be *after* the merged dictionaries -->
+            <vml:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
+        
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService 
+            Launching="Application_Launching" Closing="Application_Closing" 
+            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+    </Application.ApplicationLifetimeObjects>
+
+</Application>
