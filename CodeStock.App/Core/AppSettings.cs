@@ -67,7 +67,7 @@ namespace CodeStock.App.Core
         {
             get
             {
-                var imageUrl = this.BackgroundImageOn ? "Images/YodaBack.jpg" : null;
+                var imageUrl = this.BackgroundImageOn ? "Images/Cosmic.jpg" : null;
                 return imageUrl;
             }
         }

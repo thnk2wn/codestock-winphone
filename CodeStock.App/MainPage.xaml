@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common"
+    xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common"
     xmlns:ctl="clr-namespace:CodeStock.App.Controls" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
