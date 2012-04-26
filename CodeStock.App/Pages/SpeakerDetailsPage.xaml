@@ -8,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" 
     xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
-    xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common"
+    xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -48,7 +50,7 @@
                         Visibility="{Binding TwitterId, Converter={StaticResource nullVisibleConverter}}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <cmd:EventToCommand Command="{Binding TwitterCommand}" PassEventArgsToCommand="False"/>
+                                <Command:EventToCommand Command="{Binding TwitterCommand}" PassEventArgsToCommand="False"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HyperlinkButton>
@@ -59,7 +61,7 @@
                         Visibility="{Binding Website, Converter={StaticResource nullVisibleConverter}}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <cmd:EventToCommand Command="{Binding WebsiteCommand}" PassEventArgsToCommand="False"/>
+                                <Command:EventToCommand Command="{Binding WebsiteCommand}" PassEventArgsToCommand="False"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HyperlinkButton>
@@ -82,7 +84,7 @@
                              ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <i:Interaction.Triggers>                            
                             <i:EventTrigger EventName="SelectionChanged">
-                                <cmd:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
+                                <Command:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListBox.ItemTemplate>
@@ -111,7 +113,7 @@
                                 Margin="0,12,0,20">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <cmd:EventToCommand Command="{Binding SpeakerUrlCommand}" PassEventArgsToCommand="False"/>
+                                <Command:EventToCommand Command="{Binding SpeakerUrlCommand}" PassEventArgsToCommand="False"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </HyperlinkButton>

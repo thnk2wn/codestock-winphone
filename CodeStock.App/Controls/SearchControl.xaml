@@ -4,11 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common"
              xmlns:ctl="clr-namespace:CodeStock.App.Controls"
              xmlns:b="clr-namespace:Phone.Common.Behaviors.Phone.Framework.Behaviors;assembly=Phone.Common"
+             xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
              mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -48,7 +48,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <cmd:EventToCommand Command="{Binding ItemSelectedCommand}" PassEventArgsToCommand="True"/>
+                    <Command:EventToCommand Command="{Binding ItemSelectedCommand}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>

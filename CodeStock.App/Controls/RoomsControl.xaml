@@ -5,8 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:li="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" mc:Ignorable="d"
+    xmlns:li="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common"
+    xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
+    xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -27,7 +29,7 @@
             </i:Interaction.Behaviors>
             <i:Interaction.Triggers>
                 <li:TapTrigger>
-                    <cmd:EventToCommand Command="{Binding MapSelectedCommand}" PassEventArgsToCommand="False"/>
+                    <Command:EventToCommand Command="{Binding MapSelectedCommand}" PassEventArgsToCommand="False"/>
                 </li:TapTrigger>
             </i:Interaction.Triggers>
         </Image>
@@ -50,7 +52,7 @@
             </i:Interaction.Behaviors>
             <i:Interaction.Triggers>
                 <li:TapTrigger>
-                    <cmd:EventToCommand Command="{Binding RoomSelectedCommand}" PassEventArgsToCommand="True"/>
+                    <Command:EventToCommand Command="{Binding RoomSelectedCommand}" PassEventArgsToCommand="True"/>
                 </li:TapTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>

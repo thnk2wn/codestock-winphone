@@ -3,8 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
+             xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
              mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -29,7 +30,7 @@
             Style="{StaticResource Link}" Foreground="Red">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                    <cmd:EventToCommand Command="{Binding ShowErrorCommand}" />
+                    <Command:EventToCommand Command="{Binding ShowErrorCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </HyperlinkButton>

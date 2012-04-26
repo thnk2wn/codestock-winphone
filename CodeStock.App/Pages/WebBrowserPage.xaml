@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:System="clr-namespace:System;assembly=mscorlib" 
-    xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
+    xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
     x:Class="CodeStock.App.Pages.WebBrowserPage"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -15,7 +15,8 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"    
     shell:SystemTray.IsVisible="True" 
     DataContext="{Binding Source={StaticResource Locator}, Path=WebBrowser}"
-    Orientation="Portrait"    
+    d:DataContext="{Binding Source={StaticResource Locator}, Path=WebBrowser}"
+    Orientation="Portrait"  
     Foreground="Black">
 	
 
@@ -61,10 +62,10 @@
             ScrollViewer.VerticalScrollBarVisibility="Visible">
         	<Custom:Interaction.Triggers>
         		<Custom:EventTrigger EventName="Navigating">
-        			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadingPage}"/>
+        			<Command:EventToCommand Command="{Binding LoadingPage}"/>
         		</Custom:EventTrigger>
         		<Custom:EventTrigger EventName="LoadCompleted">
-        			<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding LoadedPage}"/>
+        			<Command:EventToCommand Command="{Binding LoadedPage}"/>
         		</Custom:EventTrigger>
         	</Custom:Interaction.Triggers>
         </phone:WebBrowser>

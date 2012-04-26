@@ -6,7 +6,9 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
+    xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -38,7 +40,7 @@
                         ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <i:Interaction.Triggers>                            
                     <i:EventTrigger EventName="SelectionChanged">
-                        <cmd:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>

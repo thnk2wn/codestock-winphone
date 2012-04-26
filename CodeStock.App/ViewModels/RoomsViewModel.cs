@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using Phone.Common.Extensions.System.Collections.Generic_;
 using Phone.Common.IOC;
 using Phone.Common.Navigation;
+using GestureEventArgs = Microsoft.Phone.Controls.GestureEventArgs;
 
 namespace CodeStock.App.ViewModels
 {

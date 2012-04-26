@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Phone.Controls;
 using Phone.Common.IO;
 using Phone.Common.Navigation;
+using GestureEventArgs = Microsoft.Phone.Controls.GestureEventArgs;
 
 namespace CodeStock.App.ViewModels
 {

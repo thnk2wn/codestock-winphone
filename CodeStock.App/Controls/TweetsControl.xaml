@@ -10,6 +10,7 @@
     xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:li="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common"
              xmlns:ctl="clr-namespace:CodeStock.App.Controls"
              xmlns:b="clr-namespace:Phone.Common.Behaviors.Phone.Framework.Behaviors;assembly=Phone.Common"
+             xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
              mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -56,7 +57,7 @@
                 </Grid>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <cmd:EventToCommand Command="{Binding UserSearchedCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding UserSearchedCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
@@ -66,7 +67,7 @@
                 </Grid>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <cmd:EventToCommand Command="{Binding NewTweetCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding NewTweetCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
@@ -95,7 +96,7 @@
             </i:Interaction.Behaviors>
             <i:Interaction.Triggers>
                 <li:TapTrigger>
-                    <cmd:EventToCommand Command="{Binding TweetSelectedCommand}" PassEventArgsToCommand="True"/>
+                    <Command:EventToCommand Command="{Binding TweetSelectedCommand}" PassEventArgsToCommand="True"/>
                 </li:TapTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>

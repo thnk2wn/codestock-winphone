@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
 using CodeStock.App.ViewModels;
 using CodeStock.App.ViewModels.ItemViewModels;
@@ -18,7 +20,6 @@ namespace CodeStock.App.Controls
             InitializeComponent();
             SetBackground();
         }
-        
 
         private void SetBackground()
         {
@@ -65,7 +66,7 @@ namespace CodeStock.App.Controls
             var vm = this.DataContext.As<SessionsViewModel>();
             if (vm.Items == null || !vm.Items.Any() || vm.IsBusySafe()) return;
 
-            var session = vm.Items.Where(s => s.SessionId == this.SessionIdToScrollTo).FirstOrDefault();
+            var session = vm.Items.FirstOrDefault(s => s.SessionId == this.SessionIdToScrollTo);
 
             if (null != session)
             {

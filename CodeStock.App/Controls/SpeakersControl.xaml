@@ -8,7 +8,9 @@
     xmlns:Controls="clr-namespace:Phone.Common.Controls;assembly=Phone.Common" 
     xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" 
     xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common"
-             xmlns:ctl="clr-namespace:CodeStock.App.Controls" mc:Ignorable="d"
+             xmlns:ctl="clr-namespace:CodeStock.App.Controls"
+             xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+             mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -40,10 +42,10 @@
         <Controls:DeferredLoadListBox Grid.Row="2" Grid.Column="0" x:Name="uxSpeakerListBox" ItemsSource="{Binding Items}" SelectionChanged="DeferredLoadListBox_SelectionChanged">
             <i:Interaction.Triggers>                
                 <i:EventTrigger EventName="SelectionChanged">
-                    <cmd:EventToCommand Command="{Binding SpeakerSelectedCommand}" PassEventArgsToCommand="True"/>
+                    <Command:EventToCommand Command="{Binding SpeakerSelectedCommand}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="LayoutUpdated" >
-                    <cmd:EventToCommand Command="{Binding SpeakersLoadedCommand}" />
+                    <Command:EventToCommand Command="{Binding SpeakersLoadedCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Controls:DeferredLoadListBox.ItemTemplate>

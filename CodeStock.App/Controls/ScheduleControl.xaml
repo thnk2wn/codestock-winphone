@@ -3,11 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" 
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
              xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
-             xmlns:watermark="clr-namespace:CodeStock.App.Controls" mc:Ignorable="d"
+             xmlns:watermark="clr-namespace:CodeStock.App.Controls"
+             xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+             mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -47,7 +48,7 @@
                 Margin="12,0,12,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <cmd:EventToCommand Command="{Binding ViewChangedCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding ViewChangedCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <toolkit:ListPicker.ItemTemplate>
@@ -67,7 +68,7 @@
                 </Grid>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <cmd:EventToCommand Command="{Binding RefreshCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding RefreshCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
@@ -91,7 +92,7 @@
             <Button BorderThickness="0" Margin="-8" Width="59" Height="55"  Padding="0" Grid.Column="1" Grid.Row="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <cmd:EventToCommand Command="{Binding MyScheduleViewModel.LookupUserIdCommand}" PassEventArgsToCommand="True"/>
+                        <Command:EventToCommand Command="{Binding MyScheduleViewModel.LookupUserIdCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Button.Background>
@@ -138,7 +139,7 @@
             
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <cmd:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
+                    <Command:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             

@@ -4,12 +4,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:Controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:li="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common"
     xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
     xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common"
-             xmlns:Interactivity="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common"
-             xmlns:ctl="clr-namespace:CodeStock.App.Controls" mc:Ignorable="d"
+    xmlns:ctl="clr-namespace:CodeStock.App.Controls"
+    xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -22,7 +23,7 @@
         <Converters:NullObjectToVisibiltyConverter x:Key="nullVisibleConverter"/>
     </UserControl.Resources>
 
-    <Grid x:Name="SessionsLayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+    <Grid x:Name="SessionsLayoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>            
         </Grid.ColumnDefinitions>
@@ -44,18 +45,19 @@
         </StackPanel>
 
 
-        <Controls:LongListSelector Grid.Row="2" Grid.Column="0" x:Name="uxSessionsList" ItemsSource="{Binding GroupedItems}" BufferSize="2.0" 
+        <Controls:LongListSelector Grid.Row="2" Grid.Column="0" x:Name="uxSessionsList" 
+                                   ItemsSource="{Binding GroupedItems}" BufferSize="2.0" 
             MaximumFlickVelocity="4000" LayoutUpdated="uxSessionsList_LayoutUpdated">
             <i:Interaction.Behaviors>
-                <Interactivity:GestureBehavior/>
+                <li:GestureBehavior/>
             </i:Interaction.Behaviors>
             <i:Interaction.Triggers>
-                <Interactivity:TapTrigger>
-                    <cmd:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
-                </Interactivity:TapTrigger>
+                <li:TapTrigger>
+                    <Command:EventToCommand Command="{Binding SessionSelectedCommand}" PassEventArgsToCommand="True"/>
+                </li:TapTrigger>
 
                 <i:EventTrigger EventName="LayoutUpdated" >
-                    <cmd:EventToCommand Command="{Binding SessionsLoadedCommand}" />
+                    <Command:EventToCommand Command="{Binding SessionsLoadedCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>            
             
