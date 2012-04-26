@@ -25,7 +25,10 @@ namespace CodeStock.App.Controls
         {
             // in control designer we have solid color brush so we can see UX at design time but runtime we want transparent
             if (this.Parent != null || !DesignerProperties.IsInDesignTool)
+            {
                 this.SessionsLayoutRoot.Background = new SolidColorBrush(Colors.Transparent);
+                uxSessionsList.Background = new SolidColorBrush(Colors.Transparent);
+            }
         }
 
         public void SaveState()

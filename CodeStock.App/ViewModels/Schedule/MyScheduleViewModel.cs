@@ -44,7 +44,7 @@ namespace CodeStock.App.ViewModels.Schedule
             {
                 SetBusy(false);
                 this.NoSessions = true;
-                this.NotFoundText = "Enter a schedule / user id to retrieve a schedule.";
+                this.NotFoundText = "Enter a schedule id then tap the screen. Or enter an email address and tap the arrow to lookup a schedule id.";
                 SetResult(null, null);
                 return;
             }

@@ -27,6 +27,10 @@ namespace CodeStock.App.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            // for some reason in mango this no longer worked binding in xaml.
+            this.SupportedOrientations = this.ViewModel.SupportedOrientation;
+
             this.SetBinding(VSM.StateNameProperty, new Binding("CurrentStateName"));
 
             if (null == this.ViewModel.InitialSource)
