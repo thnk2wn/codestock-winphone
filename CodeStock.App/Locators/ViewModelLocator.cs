@@ -112,6 +112,11 @@ namespace CodeStock.App.Locators
         {
             get { return IoC.Get<SettingsViewModel>(); }
         }
+
+        public MapsViewModel Map
+        {
+            get { return IoC.Get<MapsViewModel>(); }
+        }
         
     }
 }

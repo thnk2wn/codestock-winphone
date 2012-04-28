@@ -9,5 +9,7 @@ namespace CodeStock.App
         bool IsNewApp { get;  }
 
         bool IsDarkTheme { get; }
+
+        string MapsApiKey { get; }
     }
 }

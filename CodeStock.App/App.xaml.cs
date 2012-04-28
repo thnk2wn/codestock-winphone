@@ -79,6 +79,15 @@ namespace CodeStock.App
         private bool _isNewApp = true;
         public bool IsNewApp { get { return _isNewApp; } }
 
+        public string MapsApiKey
+        {
+            get
+            {
+                var intern = (Internal) this.Resources["Internal"];
+                return intern.MapsApiKey;
+            }
+        }
+
         #region Private Methdos
 
         private void SetupApp(string eventName)

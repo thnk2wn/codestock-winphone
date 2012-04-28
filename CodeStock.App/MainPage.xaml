@@ -107,6 +107,16 @@
             <controls:PanoramaItem>
                 <controls:PanoramaItem.HeaderTemplate>
                     <DataTemplate>
+                        <TextBlock Text="Map" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+                    </DataTemplate>
+                </controls:PanoramaItem.HeaderTemplate>
+
+                <ctl:MapControl Margin="0,-20,0,0"/>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem>
+                <controls:PanoramaItem.HeaderTemplate>
+                    <DataTemplate>
                         <TextBlock Text="Misc" FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
                     </DataTemplate>
                 </controls:PanoramaItem.HeaderTemplate>

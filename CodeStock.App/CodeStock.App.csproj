@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
+    <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SilverlightToolkitWP.4.2011.12.14\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
@@ -70,6 +71,7 @@
     <Reference Include="Ninject">
       <HintPath>..\Lib\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -91,6 +93,9 @@
     </Compile>
     <Compile Include="Controls\ErrorControl.xaml.cs">
       <DependentUpon>ErrorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MapControl.xaml.cs">
+      <DependentUpon>MapControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MiscMenuControl.xaml.cs">
       <DependentUpon>MiscMenuControl.xaml</DependentUpon>
@@ -118,6 +123,7 @@
     <Compile Include="Controls\WatermarkTextBox.cs" />
     <Compile Include="Core\ApplicationIdleModeHelper.cs" />
     <Compile Include="Core\AppSettings.cs" />
+    <Compile Include="Core\Internal.cs" />
     <Compile Include="Design\DesignHtmlDecoder.cs" />
     <Compile Include="Design\Modules\DesignModule.cs" />
     <Compile Include="Design\Modules\DesignServicesModule.cs" />
@@ -166,6 +172,7 @@
     <Compile Include="ViewModels\DiagnosticViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\ErrorItemViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\SearchItemViewModel.cs" />
+    <Compile Include="ViewModels\MapsViewModel.cs" />
     <Compile Include="ViewModels\MiscMenuViewModel.cs" />
     <Compile Include="ViewModels\Schedule\StartingSoonViewModel.cs" />
     <Compile Include="ViewModels\Schedule\ScheduleViewModel.cs" />
@@ -211,6 +218,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\MapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MiscMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +250,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Core\Internal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -382,4 +397,10 @@
   -->
   <ProjectExtensions />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(ProjectDir)Internal.xaml" xcopy /y "$(ProjectDir)Internal.xaml" "$(ProjectDir)Core\Internal.xaml"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if exist "$(ProjectDir)InternalDefault.xaml" xcopy /y "$(ProjectDir)InternalDefault.xaml" "$(ProjectDir)Core\Internal.xaml"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

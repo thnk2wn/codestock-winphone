@@ -73,10 +73,12 @@ namespace CodeStock.App.IOC
             Bind<WebBrowserViewModel>().ToSelf();
             Bind<SearchViewModel>().ToSelf();
             Bind<SettingsViewModel>().ToSelf();
+            Bind<MapsViewModel>().ToSelf();
 
             Bind<ISessionItemViewModel>().To<SessionItemViewModel>();
             Bind<ISpeakerItemViewModel>().To<SpeakerItemViewModel>();
             Bind<IRoomItemViewModel>().To<RoomItemViewModel>();
+            
         }
     }
 }

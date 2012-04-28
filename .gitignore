@@ -5,3 +5,5 @@ bin/
 obj/
 _ReSharper.*/
 packages/
+CodeStock.App/Internal.xaml
+CodeStock.App/InternalDefault.xaml
