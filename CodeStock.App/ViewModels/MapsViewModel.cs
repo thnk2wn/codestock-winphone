@@ -8,15 +8,18 @@ using CodeStock.App.ViewModels.ItemViewModels;
 using CodeStock.Data;
 using CodeStock.Data.ServiceAccess;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Phone.Tasks;
 using Phone.Common.Threading;
+using Phone.Common.Windows;
 
 namespace CodeStock.App.ViewModels
 {
     public class MapsViewModel : AppViewModelBase
     {
-        private readonly MapService _mapService;
+        private readonly MapService _mapService; // should do an IMapService at some point
+        private readonly IMessageBoxService _messageBoxService;
 
-        public MapsViewModel(IApp app, MapService mapService)
+        public MapsViewModel(IApp app, MapService mapService, IMessageBoxService messageBoxService)
         {
             if (IsInDesignModeStatic) return;
 
@@ -24,6 +27,7 @@ namespace CodeStock.App.ViewModels
             if (string.IsNullOrWhiteSpace(app.MapsApiKey)) throw new NullReferenceException("map api key must be provided");
 
             _mapService = mapService;
+            _messageBoxService = messageBoxService;
             _mapService.AfterCompleted = AfterMapDataLoaded;
             _mapsApiKey = app.MapsApiKey;
             this.ZoomLevel = 17;
@@ -33,7 +37,7 @@ namespace CodeStock.App.ViewModels
 
         private void GetData()
         {
-            //var json = MapPointDefaults.Serialize();
+            //var json = MapPointDefaults.Serialize(); // for creating initial data or recreating all
             _mapService.Load();
         }
 
@@ -43,11 +47,10 @@ namespace CodeStock.App.ViewModels
                 _mapService.ConferenceLocation.Longitude);
             
             var points = new ObservableCollection<MapPointItemViewModel>();
-            _mapService.Data.OrderBy(x=> x.Label).ToList().ForEach(p=> points.Add(new MapPointItemViewModel(p)));
+            _mapService.Data.OrderBy(x=> x.Label).ToList().ForEach(p=> points.Add(new MapPointItemViewModel(p, this)));
 
-            this.SelectedJumpToPoint = points.Single(x => x.Label == _mapService.ConferenceLocation.Label);
-            
             this.MapPoints = points;
+            this.SelectedJumpToPoint = MapPoints.Single(x => x.Label == _mapService.ConferenceLocation.Label);
         }
 
         private readonly string _mapsApiKey;
@@ -133,6 +136,25 @@ namespace CodeStock.App.ViewModels
                     RaisePropertyChanged(()=> SelectedJumpToPoint);
                 }
             }
+        }
+
+        public ICommand PushPinSelectedCommand
+        {
+            get { return new RelayCommand<MouseButtonEventArgs>(PushPinSelected); }
+        }
+
+        private void PushPinSelected(MouseButtonEventArgs e)
+        {
+            var label = ((TextBlock) e.OriginalSource).Text;
+            var p = this.MapPoints.Single(x => x.Label == label);
+            var msg = string.Format("{0}{1}{1}{2}{1}{1}Get directions to this location?", p.Description, Environment.NewLine, p.Address);
+            
+            var launchMapsApp = _messageBoxService.ShowOkCancel(msg, p.Label);
+            if (!launchMapsApp) return;
+
+            // this should be behind an interface w/IOC
+            var task = new BingMapsDirectionsTask {End = new LabeledMapLocation(p.Label, p.Location)};
+            task.Show();
         }
 
     }

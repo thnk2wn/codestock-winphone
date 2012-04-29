@@ -5,16 +5,26 @@ namespace CodeStock.App.ViewModels.ItemViewModels
 {
     public class MapPointItemViewModel : AppViewModelBase
     {
-        public MapPointItemViewModel(MapPoint point)
+        private readonly MapsViewModel _parent;
+
+        public MapPointItemViewModel(MapPoint point, MapsViewModel parent)
         {
+            _parent = parent;
             this.Label = point.Label;
             this.Location = new GeoCoordinate(point.Latitude, point.Longitude);
             this.Description = point.Description;
             this.BackgroundColor = point.BackgroundColor;
             this.ForegroundColor = point.ForegroundColor;
+            this.Address = point.Address;
         }
 
         private GeoCoordinate _location;
+
+        public MapsViewModel Parent
+        {
+            get { return _parent; }
+        }
+
         public GeoCoordinate Location
         {
             get { return _location; }
@@ -80,6 +90,21 @@ namespace CodeStock.App.ViewModels.ItemViewModels
                 {
                     _foregroundColor = value;
                     RaisePropertyChanged(()=> ForegroundColor);
+                }
+            }
+        }
+
+
+        private string _address;
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                if (_address != value)
+                {
+                    _address = value;
+                    RaisePropertyChanged(() => Address);
                 }
             }
         }

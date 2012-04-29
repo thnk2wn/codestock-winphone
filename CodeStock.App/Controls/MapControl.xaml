@@ -45,9 +45,8 @@
         </Grid.RowDefinitions>
         <map:Map Grid.Row="0" CredentialsProvider="{Binding MapsApiKey}" 
                  Center="{Binding Location, Mode=TwoWay}" 
-                 ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" 
-         
-                 ViewChangeEnd="Map_ViewChangeEnd">
+                 ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" >
+            
             <map:Map.Mode>
                 <map:AerialMode ShouldDisplayLabels="True"/>
             </map:Map.Mode>
@@ -60,7 +59,13 @@
                         Background="{Binding BackgroundColor}"
                         Foreground="{Binding ForegroundColor}"
                         Content="{Binding Label}"
-                        Location="{Binding Location}" />
+                        Location="{Binding Location}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <Command:EventToCommand Command="{Binding Parent.PushPinSelectedCommand}" PassEventArgsToCommand="True"/>
+                                </i:EventTrigger>                                
+                            </i:Interaction.Triggers>
+                        </map:Pushpin>
                     </DataTemplate>
                 </map:MapItemsControl.ItemTemplate>
             </map:MapItemsControl>
