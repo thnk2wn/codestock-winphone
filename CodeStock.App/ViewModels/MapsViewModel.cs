@@ -2,9 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Device.Location;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
 using CodeStock.App.ViewModels.ItemViewModels;
 using CodeStock.Data;
 using CodeStock.Data.ServiceAccess;
+using GalaSoft.MvvmLight.Command;
+using Phone.Common.Threading;
 
 namespace CodeStock.App.ViewModels
 {
@@ -37,9 +41,12 @@ namespace CodeStock.App.ViewModels
         {
             this.Location = new GeoCoordinate(_mapService.ConferenceLocation.Latitude,
                 _mapService.ConferenceLocation.Longitude);
-
+            
             var points = new ObservableCollection<MapPointItemViewModel>();
-            _mapService.Data.ToList().ForEach(p=> points.Add(new MapPointItemViewModel(p)));
+            _mapService.Data.OrderBy(x=> x.Label).ToList().ForEach(p=> points.Add(new MapPointItemViewModel(p)));
+
+            this.SelectedJumpToPoint = points.Single(x => x.Label == _mapService.ConferenceLocation.Label);
+            
             this.MapPoints = points;
         }
 
@@ -92,5 +99,41 @@ namespace CodeStock.App.ViewModels
                 }
             }
         }
+
+        public ICommand JumpToCommand
+        {
+            get { return new RelayCommand<SelectionChangedEventArgs>(JumpTo); }
+        }
+
+        private void JumpTo(SelectionChangedEventArgs e)
+        {
+            if (0 == e.AddedItems.Count) return;
+
+            // give the UI a chance to finish the listpicker closing transition
+            // not the best way to do this really
+            DispatchTimerUtil.OnWithDispatcher(TimeSpan.FromMilliseconds(150),
+                () =>
+                {
+                    var p = (MapPointItemViewModel) e.AddedItems[0];
+                    this.SelectedJumpToPoint = this.MapPoints.Single(x => x.Label == p.Label);
+                    this.Location = this.SelectedJumpToPoint.Location;
+                });
+        }
+
+        private MapPointItemViewModel _selectedJumpToPoint;
+
+        public MapPointItemViewModel SelectedJumpToPoint
+        {
+            get { return _selectedJumpToPoint; }
+            set
+            {
+                if (_selectedJumpToPoint != value)
+                {
+                    _selectedJumpToPoint = value;
+                    RaisePropertyChanged(()=> SelectedJumpToPoint);
+                }
+            }
+        }
+
     }
 }

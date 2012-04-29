@@ -10,6 +10,7 @@ namespace CodeStock.Data
             RemoveFromCache(ScheduleService.CacheKey);
             RemoveFromCache(SessionsService.SESSION_KEY);
             RemoveFromCache(SpeakersService.SpeakersCacheKey);
+            RemoveFromCache(MapService.MapCacheKey);
         }
 
         private static void RemoveFromCache(string key)

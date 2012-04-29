@@ -8,9 +8,10 @@ namespace CodeStock.Data.ServiceAccess
     public class MapService : CodeStockService<MapPoint>
     {
         private const string MapUrl = "http://geoffhudik.com/codestock/map.json";
+        internal const string MapCacheKey = "MapPointData";
 
         public MapService(TimeSpan cacheDuration)
-            : base("MapData", cacheDuration)
+            : base(MapCacheKey, cacheDuration)
         {
         }
 
