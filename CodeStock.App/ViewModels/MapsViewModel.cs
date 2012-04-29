@@ -1,20 +1,46 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Device.Location;
+using System.Linq;
+using CodeStock.App.ViewModels.ItemViewModels;
+using CodeStock.Data;
+using CodeStock.Data.ServiceAccess;
 
 namespace CodeStock.App.ViewModels
 {
     public class MapsViewModel : AppViewModelBase
     {
-        public MapsViewModel(IApp app)
+        private readonly MapService _mapService;
+
+        public MapsViewModel(IApp app, MapService mapService)
         {
-            if (AppViewModelBase.IsInDesignModeStatic) return;
+            if (IsInDesignModeStatic) return;
 
             if (null == app) throw new ArgumentNullException("app", "app cannot be null");
             if (string.IsNullOrWhiteSpace(app.MapsApiKey)) throw new NullReferenceException("map api key must be provided");
-            _mapsApiKey = app.MapsApiKey;
 
+            _mapService = mapService;
+            _mapService.AfterCompleted = AfterMapDataLoaded;
+            _mapsApiKey = app.MapsApiKey;
             this.ZoomLevel = 17;
-            this.Location = new GeoCoordinate(35.962393, -83.921241);
+
+            QueueSafeDispatch(GetData);
+        }
+
+        private void GetData()
+        {
+            //var json = MapPointDefaults.Serialize();
+            _mapService.Load();
+        }
+
+        private void AfterMapDataLoaded(CompletedEventArgs e)
+        {
+            this.Location = new GeoCoordinate(_mapService.ConferenceLocation.Latitude,
+                _mapService.ConferenceLocation.Longitude);
+
+            var points = new ObservableCollection<MapPointItemViewModel>();
+            _mapService.Data.ToList().ForEach(p=> points.Add(new MapPointItemViewModel(p)));
+            this.MapPoints = points;
         }
 
         private readonly string _mapsApiKey;
@@ -22,6 +48,20 @@ namespace CodeStock.App.ViewModels
         public string MapsApiKey
         {
             get { return _mapsApiKey; }
+        }
+
+        private ObservableCollection<MapPointItemViewModel> _mapPoints;
+        public ObservableCollection<MapPointItemViewModel> MapPoints
+        {
+            get { return _mapPoints; }
+            set
+            {
+                if (_mapPoints != value)
+                {
+                    _mapPoints = value;
+                    RaisePropertyChanged(()=> MapPoints);
+                }
+            }
         }
 
         private GeoCoordinate _location;

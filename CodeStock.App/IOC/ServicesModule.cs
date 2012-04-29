@@ -24,6 +24,7 @@ namespace CodeStock.App.IOC
 
             Bind<IUserIdLookupService>().To<UserIdLookupService>();
             Bind<IScheduleService>().ToMethod((c) => new ScheduleService(tsSchedule));
+            Bind<MapService>().ToMethod(c=> new MapService(TimeSpan.FromHours(2)));
 
             Bind<ITwitterSearchService>().To<TwitterSearchService>();
 

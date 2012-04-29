@@ -171,6 +171,7 @@
     <Compile Include="Locators\ViewModelLocator.cs" />
     <Compile Include="ViewModels\DiagnosticViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\ErrorItemViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModels\MapPointItemViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\SearchItemViewModel.cs" />
     <Compile Include="ViewModels\MapsViewModel.cs" />
     <Compile Include="ViewModels\MiscMenuViewModel.cs" />

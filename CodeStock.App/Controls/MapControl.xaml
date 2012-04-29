@@ -9,15 +9,56 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480"
     DataContext="{Binding Source={StaticResource Locator}, Path=Map}"
-    xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps">
+    xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
+             xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common">
+    
+    <UserControl.Resources>
+        <Converters:ImageBrushConverter x:Key="imageConverter"/>
+
+        <ControlTemplate x:Key="PushpinControlTemplate" TargetType="map:Pushpin">
+            <Grid x:Name="ContentGrid">
+                <StackPanel Orientation="Vertical">
+                    <Grid Background="{TemplateBinding Background}"
+                                            HorizontalAlignment="Left"
+                                            MinHeight="31"
+                                            MinWidth="29">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                           Content="{TemplateBinding Content}"
+                                           ContentTemplate="{TemplateBinding ContentTemplate}"
+                                           Margin="4"/>
+                    </Grid>
+                    <Polygon Fill="{TemplateBinding Background}"
+                                     Points="0,0 29,0 0,29"
+                                     Width="29"
+                                     Height="29"
+                                     HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
     
     <Grid x:Name="LayoutRoot">
         <map:Map CredentialsProvider="{Binding MapsApiKey}" 
                  Center="{Binding Location, Mode=TwoWay}" 
-                 ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" ViewChangeEnd="Map_ViewChangeEnd">
+                 ZoomLevel="{Binding ZoomLevel, Mode=TwoWay}" 
+         
+                 ViewChangeEnd="Map_ViewChangeEnd">
             <map:Map.Mode>
                 <map:AerialMode ShouldDisplayLabels="True"/>
             </map:Map.Mode>
-        </map:Map>
+
+            <map:MapItemsControl ItemsSource="{Binding MapPoints}">
+                <map:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <map:Pushpin 
+                         Template="{StaticResource PushpinControlTemplate}"
+                        Background="{Binding BackgroundColor}"
+                        Foreground="{Binding ForegroundColor}"
+                        Content="{Binding Label}"
+                        Location="{Binding Location}" />
+                    </DataTemplate>
+                </map:MapItemsControl.ItemTemplate>
+            </map:MapItemsControl>
+        </map:Map>        
     </Grid>
 </UserControl>

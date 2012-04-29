@@ -20,18 +20,6 @@ namespace CodeStock.App.Controls
             var map = (Map)sender;
 
             Debug.WriteLine(string.Format("view changed. center location: {0}", map.Center));
-
-            if (map.Center.Latitude != 0 && map.Center.Longitude != 0 && map.Children.Count == 0)
-            {
-                var pushpin = new Pushpin
-                {
-
-                    Location = new GeoCoordinate(map.Center.Latitude, map.Center.Longitude),
-                    Content = "1",
-                    FontSize = 30
-                };
-                map.Children.Add(pushpin);
-            }
         }
 
         private void SetBackground()
