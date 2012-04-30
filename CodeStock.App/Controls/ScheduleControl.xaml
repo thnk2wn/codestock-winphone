@@ -42,6 +42,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
+            
+            <!-- list picker background when expanded is a problem, at least w/light theme -->
             <toolkit:ListPicker x:Name="uxListPicker" Grid.Column="0" 
                 ItemsSource="{Binding ScheduleViews}" 
                 SelectedItem="{Binding ScheduleView}"
@@ -58,7 +60,7 @@
                 </toolkit:ListPicker.ItemTemplate>
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" />
+                       <TextBlock Text="{Binding}" />                     
                     </DataTemplate>
                 </toolkit:ListPicker.FullModeItemTemplate>
             </toolkit:ListPicker>

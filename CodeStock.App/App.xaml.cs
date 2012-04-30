@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using CodeStock.App.Core;
 using CodeStock.App.IOC;
@@ -71,7 +72,21 @@ namespace CodeStock.App
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            ThemeOverride();
+
             ConferenceStart = new DateTime(2012, 6, 15);
+        }
+
+        private static void ThemeOverride()
+        {
+            ThemeManager.ToDarkTheme();
+            SetColors();
+        }
+
+        private static void SetColors()
+        {
+            var limeGreen = Color.FromArgb(255, 140, 191, 38); //#90ee90
+            ((SolidColorBrush) Current.Resources["PhoneAccentBrush"]).Color = limeGreen;
         }
 
         public DateTime StartupTime { get; private set; }

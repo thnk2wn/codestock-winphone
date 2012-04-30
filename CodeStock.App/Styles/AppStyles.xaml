@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Custom.ThemeResources.xaml"/>
         <ResourceDictionary Source="PerformanceProgressBar.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
@@ -68,9 +68,12 @@
         <Setter Property="Foreground" Value="Yellow"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Margin" Value="30,15,20,15"/>
-    </Style>    
+    </Style>
 
-    
+    <!-- Begin Custom Additional for CodeStock -->
+    <SolidColorBrush x:Key="LinkBrush" Color="Cyan"/>
+    <!-- End Custom Additional for CodeStock -->
+
     <!-- for some reason font color change in Custom.System.Windows.xaml is not working -->
     <Style x:Key="Link" TargetType="HyperlinkButton">
         <Setter Property="Foreground" Value="{StaticResource LinkBrush}"/>

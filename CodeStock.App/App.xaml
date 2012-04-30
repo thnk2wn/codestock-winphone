@@ -9,7 +9,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/Custom.System.Windows.xaml"/>
                 <ResourceDictionary Source="Styles/AppStyles.xaml"/>
                 <ResourceDictionary Source="Styles/WatermarkTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/PerformanceProgressBar.xaml"/>
