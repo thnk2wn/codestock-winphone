@@ -21,6 +21,104 @@
         <Converters:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
         <Converters:IntFormatConverter x:Key="IntConverter"/>
         <Converters:NullObjectToVisibiltyConverter x:Key="nullVisibleConverter"/>
+
+        <!-- http://www.windowsphonegeek.com/tips/listpicker-fullscreen-mode-background-problem-workaround -->
+        <Style TargetType="toolkit:ListPicker" x:Key="customStyle">
+            <!--<Setter Property="Background" Value="{StaticResource PhoneTextBoxBrush}"/>-->
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneTextBoxForegroundBrush}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="{StaticResource PhoneTouchTargetOverhang}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="toolkit:ListPicker">
+                        <StackPanel>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="PickerStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Expanded">
+                                        <Storyboard>
+                                            <!--<ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="Background"
+                                        Duration="0">
+                                            <DiscreteObjectKeyFrame
+                                            Value="{StaticResource PhoneTextBoxEditBackgroundColor}"
+                                            KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>-->
+                                            <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="BorderBrush"
+                                        Duration="0">
+                                                <DiscreteObjectKeyFrame
+                                            Value="{StaticResource PhoneTextBoxEditBorderBrush}"
+                                            KeyTime="0"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentControl
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Foreground="{StaticResource PhoneSubtleBrush}"
+                        FontSize="{StaticResource PhoneFontSizeNormal}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="0 0 0 8"/>
+                            <Grid>
+                                <Border
+                            x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding Background}"
+                            BorderThickness="2">
+                                    <Canvas x:Name="ItemsPresenterHost" MinHeight="46">
+                                        <ItemsPresenter x:Name="ItemsPresenter">
+                                            <ItemsPresenter.RenderTransform>
+                                                <TranslateTransform x:Name="ItemsPresenterTranslateTransform"/>
+                                            </ItemsPresenter.RenderTransform>
+                                        </ItemsPresenter>
+                                    </Canvas>
+                                </Border>
+                                <Popup x:Name="FullModePopup">
+                                    <Border Background="{StaticResource PhoneChromeBrush}">
+                                        <!-- Popup.Child should always be a Border -->
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <ContentControl
+                                        Grid.Row="0"
+                                        Content="{TemplateBinding FullModeHeader}"
+                                        Foreground="{StaticResource PhoneForegroundBrush}"
+                                        FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                        FontSize="{StaticResource PhoneFontSizeMedium}"
+                                        HorizontalAlignment="Left"
+                                        Margin="24 12 0 0"/>
+                                            <ListBox
+                                        x:Name="FullModeSelector"
+                                        Grid.Row="1"
+                                        ItemTemplate="{TemplateBinding ActualFullModeItemTemplate}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Margin="{StaticResource PhoneMargin}">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel/>
+                                                        <!-- Ensures all containers will be available during the Loaded event -->
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                            </ListBox>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
@@ -47,7 +145,7 @@
             <toolkit:ListPicker x:Name="uxListPicker" Grid.Column="0" 
                 ItemsSource="{Binding ScheduleViews}" 
                 SelectedItem="{Binding ScheduleView}"
-                Margin="12,0,12,0">
+                Margin="12,0,12,0" Style="{StaticResource customStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <Command:EventToCommand Command="{Binding ViewChangedCommand}" PassEventArgsToCommand="True"/>
