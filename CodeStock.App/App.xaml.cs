@@ -49,6 +49,8 @@ namespace CodeStock.App
             UnhandledException += Application_UnhandledException;
 
             // Show graphics profiling information while debugging.
+#if DEBUG
+
             if (Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
@@ -61,6 +63,7 @@ namespace CodeStock.App
                 // which shows areas of a page that are being GPU accelerated with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
             }
+#endif
 
             // important: theme detection must happen here before we initialize anything and load our own app resources
             // which override the default ones and would give us false positives on theme detection
