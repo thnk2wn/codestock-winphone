@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CodeStock.App.ViewModels.ItemViewModels;
@@ -8,7 +7,6 @@ using CodeStock.App.ViewModels.Support;
 using CodeStock.Data;
 using CodeStock.Data.ServiceAccess;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Phone.Controls;
 using Phone.Common.IO;
 using Phone.Common.Navigation;
 using GestureEventArgs = Microsoft.Phone.Controls.GestureEventArgs;
@@ -20,12 +18,14 @@ namespace CodeStock.App.ViewModels
         private const int AutoRefreshSeconds = 120;
         private const string DefaultSearchText = "CodeStock";
 
-        public TwitterSearchViewModel(ITwitterSearchService twitterSearchService, INavigationService navigationService)
+        public TwitterSearchViewModel(ITwitterSearchService twitterSearchService, 
+            INavigationService navigationService, IApp app)
         {
             _twitterSearchService = twitterSearchService;
             _twitterSearchService.AfterCompleted = SearchComplete;
 
             _navigationService = navigationService;
+            _app = app;
 
             this.Invalidated = true;
 
@@ -35,6 +35,7 @@ namespace CodeStock.App.ViewModels
 
         private readonly ITwitterSearchService _twitterSearchService;
         private readonly INavigationService _navigationService;
+        private readonly IApp _app;
 
         private ObservableCollection<TweetItemViewModel> _tweetItems;
 
@@ -68,6 +69,22 @@ namespace CodeStock.App.ViewModels
             }
         }
 
+        private string _lastSearchText = DefaultSearchText;
+
+        public string LastSearchText
+        {
+            get { return _lastSearchText; }
+
+            set
+            {
+                if (_lastSearchText != value)
+                {
+                    _lastSearchText = value;
+                    RaisePropertyChanged(() => LastSearchText);
+                }
+            }
+        }
+
         private bool Invalidated { get; set; }
         private DateTime? LastLoaded { get; set; }
 
@@ -91,6 +108,7 @@ namespace CodeStock.App.ViewModels
             this.TweetItems = items;
             this.Invalidated = false;
             this.LastLoaded = DateTime.Now;
+            this.LastSearchText = this.SearchText;
             this.SetBusy(false);
 
             this.Error = (null == e.Error) ? null : new ErrorItemViewModel(e);
@@ -115,8 +133,9 @@ namespace CodeStock.App.ViewModels
 
         protected override void OnActivated()
         {
-            if (!WasRestored)
+            if (!WasRestored && HasSearchText)
                 this.Load();
+
         }
 
         public ICommand UserSearchedCommand
@@ -124,14 +143,22 @@ namespace CodeStock.App.ViewModels
             get { return new RelayCommand(UserSearched); }
         }
 
+        private bool HasSearchText
+        {
+            get { return !(string.IsNullOrEmpty(this.SearchText) || 0 == this.SearchText.Trim().Length); }
+        }
+
         private void UserSearched()
         {
             if (this.IsBusy)
                 return;
 
-            if (string.IsNullOrEmpty(this.SearchText) || 0 == this.SearchText.Trim().Length)
+            if (!HasSearchText)
             {
-                this.MessageBox("Please enter something to search for.", "Required Data");
+                // back button tombstone citation when leaving app w/msgbox up and coming back
+                // hard to show msgbox at right time coming back from tombstoning
+                // just getting rid of msgbox for now :)
+                //this.MessageBox("Please enter something to search for.", "Required Data");
                 return;
             }
 
@@ -163,10 +190,14 @@ namespace CodeStock.App.ViewModels
         {
             this.SearchText = store.Restore(() => this.SearchText, DefaultSearchText);
             this.TweetItems = store.Restore(() => this.TweetItems, new ObservableCollection<TweetItemViewModel>());
-            this.WasRestored = (this.TweetItems.Any());
+            //this.WasRestored = (this.TweetItems.Any());
+
+            // hmm we can't seem to show messagebox at any good point here as it's too early
+            // consider
+            // http://dotnet-redzone.blogspot.com/2010/10/windows-phone-7-tombstoning-and.html
         }
 
-        private bool WasRestored { get; set; }
+        private bool WasRestored { get { return !_app.IsNewApp; } }
 
         public const string StateKey = "TwitterSearchViewModel.TweetItems";
 

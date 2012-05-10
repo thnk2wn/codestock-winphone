@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using CodeStock.Data.ServiceAccess;
@@ -44,7 +45,8 @@ namespace CodeStock.App.ViewModels.Schedule
             {
                 SetBusy(false);
                 this.NoSessions = true;
-                this.NotFoundText = "Enter a schedule id then tap the screen. Or enter an email address and tap the arrow to lookup a schedule id.";
+                this.NotFoundText = "Enter a schedule id then tap the screen. Or enter an email address and tap the arrow to lookup a schedule id." 
+                    + Environment.NewLine + Environment.NewLine + "This requires personal schedule creation on the codestock.org website.";
                 SetResult(null, null);
                 return;
             }

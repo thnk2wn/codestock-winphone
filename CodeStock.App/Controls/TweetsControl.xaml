@@ -4,9 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Media="clr-namespace:Phone.Common.Media;assembly=Phone.Common" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7" 
-    xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Converters="clr-namespace:Phone.Common.Converters;assembly=Phone.Common" 
     xmlns:Windows="clr-namespace:Phone.Common.Windows;assembly=Phone.Common" xmlns:li="clr-namespace:Phone.Common.Interactivity;assembly=Phone.Common"
              xmlns:ctl="clr-namespace:CodeStock.App.Controls"
              xmlns:b="clr-namespace:Phone.Common.Behaviors.Phone.Framework.Behaviors;assembly=Phone.Common"
@@ -41,7 +40,7 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-            <ctl:WatermarkedTextBox Watermark="Search Text"
+            <ctl:WatermarkedTextBox Watermark="{Binding LastSearchText, Mode=TwoWay}"
                Grid.Column="0"
                 Text="{Binding SearchText, Mode=TwoWay}"  
                 InputScope="Search"
@@ -89,7 +88,8 @@
             <ctl:ErrorControl DataContext="{Binding Error}" />
         </StackPanel>
 
-        <ListBox x:Name="uxTweetsListBox" ItemsSource="{Binding TweetItems}" SelectionChanged="uxTweetsListBox_SelectionChanged"
+        <ListBox x:Name="uxTweetsListBox" ItemsSource="{Binding TweetItems}" 
+                 SelectionChanged="uxTweetsListBox_SelectionChanged"
             Grid.Row="3">
             <i:Interaction.Behaviors>
                 <li:GestureBehavior/>
