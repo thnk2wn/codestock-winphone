@@ -1,8 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Phone.Info;
 using Microsoft.Phone.Tasks;
 using Phone.Common.Diagnostics.Logging;
 
