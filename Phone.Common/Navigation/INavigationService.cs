@@ -9,5 +9,6 @@ namespace Phone.Common.Navigation
         void NavigateTo(Uri uri);
         void NavigateTo(Uri uri, object navData);
         void GoBack();
+        void ExitBack();
     }
 }

@@ -24,7 +24,7 @@ namespace CodeStock.Data.ServiceAccess
 
         private static TwitterSearchResult ParseJson(string json)
         {
-            var result = JsonConvert.DeserializeObject<TwitterSearchResult>(json);
+            var result = JsonUtility.Deserialize<TwitterSearchResult>(json);
             return result;
         }
 

@@ -86,7 +86,7 @@ namespace CodeStock.Data.ServiceAccess
 
             // removed use of JsonSerializerSettings for performance and it was more for unusual error troubleshooting
             var timer = CodeTimer.StartNew();
-            var root = JsonConvert.DeserializeObject<ModelBase<T>>(json);
+            var root = JsonUtility.Deserialize<ModelBase<T>>(json);
             LogInstance.LogDebug("{0}: Json parsed in {1:#.000} seconds", this.GetType().Name, timer.Stop());
             return root;
         }

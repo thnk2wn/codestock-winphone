@@ -15,7 +15,7 @@ namespace CodeStock.Data.ServiceAccess
 
         protected override void AfterRequestCompleted(string result)
         {
-            var root = JsonConvert.DeserializeObject<UserIdLookupResult>(result);
+            var root = JsonUtility.Deserialize<UserIdLookupResult>(result);
             this.UserId = (0 == root.d) ? (int?)null : root.d;
             OnAfterCompleted(new CompletedEventArgs());
         }

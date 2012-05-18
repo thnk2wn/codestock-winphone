@@ -58,6 +58,7 @@
     <Compile Include="CacheUtility.cs" />
     <Compile Include="CompletedEventArgs.cs" />
     <Compile Include="CoreDataMerger.cs" />
+    <Compile Include="JsonUtility.cs" />
     <Compile Include="LocalAccess\FavoriteSessions.cs" />
     <Compile Include="MapPointDefaults.cs" />
     <Compile Include="Model\MapPoint.cs" />

@@ -48,7 +48,7 @@ namespace CodeStock.Data.ServiceAccess
 
         protected override void AfterRequestCompleted(string result)
         {
-            var root = JsonConvert.DeserializeObject<ScheduleResult>(result);
+            var root = JsonUtility.Deserialize<ScheduleResult>(result);
             this.SessionIds = root.d;
 
             if (this.SessionIds != null && this.SessionIds.Any())

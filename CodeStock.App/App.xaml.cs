@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
@@ -8,11 +10,13 @@ using CodeStock.App.IOC;
 using CodeStock.App.Messaging;
 using CodeStock.App.Pages;
 using CodeStock.App.ViewModels.Support;
+using CodeStock.Data;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Phone.Common.Diagnostics.Logging;
 using Phone.Common.IOC;
+using Phone.Common.Navigation;
 using Phone.Common.Threading;
 using Phone.Common.Windows;
 
@@ -137,6 +141,11 @@ namespace CodeStock.App
             });
         }
 
+        private static void ExitApp()
+        {
+            IoC.Get<INavigationService>().ExitBack();
+        }
+
         #endregion Private Methods
 
         #region App Events
@@ -204,6 +213,15 @@ namespace CodeStock.App
 
                 DispatchUtil.SafeDispatch(() =>
                 {
+                    if (e.ExceptionObject is DataFormatReadException)
+                    {
+                        MessageBox.Show(e.ExceptionObject.Message, "Unexpected Data Returned", MessageBoxButton.OK);
+                        var coreData = IoC.Get<ICoreData>();
+                        var duringStartup = !coreData.IsLoaded;
+                        if (duringStartup) ExitApp();
+                        return;
+                    }
+
                     var errorWin = new ErrorWindow(e.ExceptionObject,
                     "An unexpected error has occurred. Please click Send to report the error details.") { Title = "Unexpected Error" };
                     errorWin.Show();

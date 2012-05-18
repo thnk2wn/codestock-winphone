@@ -40,6 +40,17 @@ namespace Phone.Common.Navigation
             }
         }
 
+        public void ExitBack()
+        {
+            if (_mainFrame.CanGoBack)
+            {
+                while (_mainFrame.RemoveBackEntry() != null)
+                {
+                    _mainFrame.RemoveBackEntry();
+                }
+            }
+        }
+
         private bool EnsureMainFrame()
         {
             if (_mainFrame != null)
