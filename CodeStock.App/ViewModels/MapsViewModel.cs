@@ -145,8 +145,13 @@ namespace CodeStock.App.ViewModels
 
         private void PushPinSelected(MouseButtonEventArgs e)
         {
-            var label = ((TextBlock) e.OriginalSource).Text;
-            var p = this.MapPoints.Single(x => x.Label == label);
+            var textblock = e.OriginalSource as TextBlock;
+            if (null == textblock) return;
+
+            var label = textblock.Text;
+            var p = this.MapPoints.FirstOrDefault(x => x.Label == label);
+            if (null == p) return;
+
             var msg = string.Format("{0}{1}{1}{2}{1}{1}Get directions to this location?", p.Description, Environment.NewLine, p.Address);
             
             var launchMapsApp = _messageBoxService.ShowOkCancel(msg, p.Label);
